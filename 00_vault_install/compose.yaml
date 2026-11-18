@@ -1,0 +1,15 @@
+services:
+  vault:
+    image: kcshbr83.kcs/docker-hub/hashicorp/vault:latest
+    container_name: vault
+    ports:
+      - "8200:8200"
+      - "8201:8201"
+    cap_add:
+      - IPC_LOCK
+    environment:
+      VAULT_ADDR: "http://127.0.0.1:8200"
+    volumes:
+      - ./config:/vault/config:ro
+      - ./data:/vault/data:rw
+    command: vault server -config=/vault/config/vault.hcl
